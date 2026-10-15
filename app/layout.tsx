@@ -23,6 +23,8 @@ const siteTitle = "🐾 하예HAYE | 고양이 발바닥 방명록";
 const siteDescription = "이름과 한마디를 남기면 고양이가 발바닥 도장을 꾹 찍어 줘요.";
 
 export const metadata: Metadata = {
+  // 미리보기 이미지 주소를 만들 때 쓰는 사이트 기본 주소
+  metadataBase: new URL("https://guestbook-smoky.vercel.app"),
   title: siteTitle,
   description: siteDescription,
   openGraph: {
