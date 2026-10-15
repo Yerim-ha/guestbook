@@ -1,52 +1,69 @@
 @import "tailwindcss";
 
-/* 사이트 전체 색상표. 밝은 화면 기준이고, 아래에서 어두운 화면용으로 바꿔요 */
+/* 치즈 고양이 다이어리 색상표
+   버터 옐로 종이 + 치즈 주황 + 고양이 그림 같은 진한 갈색 선.
+   다이어리 느낌을 지키려고 어두운 화면에서도 같은 색을 써요. */
 :root {
-  --paper: #f3f4f1;
-  --sheet: #fcfcfa;
-  --ink: #1d2433;
-  --muted: #5b6375;
-  --line: #d9dcd6;
-  --accent: #2b4c9b;
-  --accent-ink: #ffffff;
-  --danger: #a3372b;
+  --paper: #fff3c9;      /* 버터 옐로 배경 */
+  --sheet: #fffaee;      /* 크림색 종이 */
+  --ink: #4a2f1d;        /* 진한 갈색 글씨·테두리 */
+  --muted: #8a6a4f;      /* 연한 갈색 보조 글씨 */
+  --line: #e9d4a6;       /* 점선, 구분선 */
+  --cheese: #f2a541;     /* 치즈 주황 (버튼) */
+  --cheese-soft: #ffe0a8;
+  --mint: #8fd3ad;       /* 민트 포인트 */
+  --pink: #f6b6ae;       /* 귀 안쪽 분홍 */
+  --danger: #c4513b;
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #14171e;
-    --sheet: #1c2029;
-    --ink: #e7e9ee;
-    --muted: #9aa2b3;
-    --line: #2e3340;
-    --accent: #8fa9ec;
-    --accent-ink: #10131a;
-    --danger: #e88a7d;
-    color-scheme: dark;
-  }
-}
-
-/* 위 색상과 글꼴을 Tailwind 이름(bg-paper, text-muted, font-display 등)으로 쓸 수 있게 연결 */
+/* Tailwind 이름(bg-paper, text-muted, font-display 등)으로 쓸 수 있게 연결 */
 @theme inline {
   --color-paper: var(--paper);
   --color-sheet: var(--sheet);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
-  --color-accent: var(--accent);
-  --color-accent-ink: var(--accent-ink);
+  --color-cheese: var(--cheese);
+  --color-cheese-soft: var(--cheese-soft);
+  --color-mint: var(--mint);
+  --color-pink: var(--pink);
   --color-danger: var(--danger);
-  --font-display: var(--font-gowun-batang), "Nanum Myeongjo", "Batang", serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, Consolas, monospace;
-  --font-sans: "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-display: var(--font-ssurround), "Malgun Gothic", system-ui, sans-serif;
+  --font-hand: var(--font-gaegu), "Malgun Gothic", sans-serif;
+  --font-sans: var(--font-gaegu), "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+
+  /* 글씨 크기는 딱 두 가지만 써요: 기본(본문·이름·입력칸)과 작은 글씨(날짜·번호·글자 수) */
+  --text-base: 1.1875rem;          /* 19px */
+  --text-base--line-height: 1.5;
+  --text-sm: 0.9375rem;            /* 15px */
+  --text-sm--line-height: 1.4;
 }
 
 body {
-  background: var(--paper);
+  background-color: var(--paper);
+  /* 다이어리 속지처럼 아주 옅은 점 무늬 */
+  background-image: radial-gradient(color-mix(in srgb, var(--cheese) 22%, transparent) 1.2px, transparent 1.3px);
+  background-size: 22px 22px;
   color: var(--ink);
   font-family: var(--font-sans);
-  line-height: 1.65;
+  font-size: var(--text-base);
+  line-height: 1.5;
   /* 한글이 단어 중간에서 줄바꿈되지 않게 해요 */
   word-break: keep-all;
   overflow-wrap: anywhere;
+}
+
+/* 고양이 그림처럼 굵은 갈색 테두리 + 아래로 살짝 찍힌 그림자 */
+.cat-card {
+  position: relative;
+  background: var(--sheet);
+  border: 2.5px solid var(--ink);
+  border-radius: 22px;
+  box-shadow: 0 5px 0 var(--ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .paw-stamp { transition: transform 0.2s ease; }
+  .entry:hover .paw-stamp { transform: rotate(var(--tilt)) scale(1.08); }
 }

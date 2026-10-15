@@ -25,12 +25,27 @@ export function GuestbookForm() {
   return (
     <form
       action={formAction}
-      className="flex flex-col gap-4 rounded-md border border-line bg-sheet p-5 md:sticky md:top-6"
+      className="cat-card mt-6 flex flex-col gap-4 p-5"
     >
-      <h2 className="font-display text-xl font-bold">방명록 쓰기</h2>
+      {/* 카드 위에 쫑긋 솟은 치즈 고양이 귀 */}
+      <svg
+        aria-hidden
+        viewBox="0 0 300 40"
+        preserveAspectRatio="none"
+        className="pointer-events-none absolute inset-x-6 -top-[34px] h-9"
+      >
+        <g stroke="#4a2f1d" strokeWidth="2.5" strokeLinejoin="round">
+          <path d="M18 39 L42 4 Q46 0 50 5 L78 39" fill="#f2a541" />
+          <path d="M34 39 L45 18 L62 39" fill="#f6b6ae" stroke="none" />
+          <path d="M222 39 L250 5 Q254 0 258 4 L282 39" fill="#f2a541" />
+          <path d="M238 39 L255 18 L266 39" fill="#f6b6ae" stroke="none" />
+        </g>
+      </svg>
+
+      <h2 className="font-display text-2xl">발자국 남기기</h2>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="name" className="text-sm font-medium text-muted">
+        <label htmlFor="name" className="text-base text-muted">
           이름
         </label>
         <input
@@ -41,12 +56,12 @@ export function GuestbookForm() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="예: 지나가던 고양이"
-          className="rounded border border-line bg-paper px-3 py-2.5 outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          className="rounded-xl border-2 border-line bg-paper px-3 py-2.5 text-base outline-none focus-visible:border-cheese"
         />
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="message" className="text-sm font-medium text-muted">
+        <label htmlFor="message" className="text-base text-muted">
           남길 말
         </label>
         <textarea
@@ -58,9 +73,9 @@ export function GuestbookForm() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="반가웠어요! 다음에 또 올게요."
-          className="resize-y rounded border border-line bg-paper px-3 py-2.5 font-display text-base leading-relaxed outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          className="resize-y rounded-xl border-2 border-line bg-paper px-3 py-2.5 text-base outline-none focus-visible:border-cheese"
         />
-        <span className="self-end font-mono text-xs text-muted tabular-nums">
+        <span className="self-end text-sm text-muted tabular-nums">
           {message.length} / 300
         </span>
       </div>
@@ -68,14 +83,14 @@ export function GuestbookForm() {
       <button
         type="submit"
         disabled={pending}
-        className="rounded bg-accent px-4 py-2.5 font-semibold text-accent-ink transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+        className="rounded-full border-2 border-ink bg-cheese px-4 py-2.5 font-display text-lg text-ink shadow-[0_3px_0_var(--ink)] transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink active:translate-y-0.5 active:shadow-none disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {pending ? "남기는 중…" : "남기기"}
+        {pending ? "꾹 찍는 중…" : "발도장 꾹 남기기"}
       </button>
 
       <p
         aria-live="polite"
-        className={`min-h-5 text-sm ${state.ok ? "text-muted" : "text-danger"}`}
+        className={`min-h-6 text-base ${state.ok ? "text-ink" : "text-danger"}`}
       >
         {state.message}
       </p>

@@ -2,6 +2,7 @@
 
 import { connection } from "next/server";
 import { supabase, type Entry } from "@/lib/supabase";
+import { PawStamp } from "./paw-stamp";
 
 // 서버가 해외(Vercel)에 있어도 한국 시간으로 보여 줘요
 const dateFormat = new Intl.DateTimeFormat("ko-KR", {
@@ -31,7 +32,7 @@ export async function EntryList() {
   const entries = (data ?? []) as Entry[];
 
   if (entries.length === 0) {
-    return <Notice title="아직 아무도 다녀가지 않았어요" text="첫 번째 글을 남겨 주세요." />;
+    return <Notice title="아직 아무 고양이도 다녀가지 않았어요" text="첫 번째 발자국을 남겨 주세요." />;
   }
 
   return (
@@ -39,32 +40,19 @@ export async function EntryList() {
       {entries.map((entry) => (
         <li
           key={entry.id}
-          className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-4 border-b border-dashed border-line py-5 last:border-b-0"
+          className="entry flex gap-4 border-b-2 border-dashed border-line py-5 last:border-b-0"
         >
-          {/* 방문 번호 도장: 몇 번째로 남긴 글인지 보여 줘요 */}
-          <div
-            aria-hidden
-            className="grid size-14 -rotate-6 place-items-center rounded-full border-2 border-accent text-center font-mono text-[11px] leading-tight text-accent tabular-nums"
-          >
-            <span>
-              No.
-              <b className="block text-[15px] font-medium">
-                {String(entry.id).padStart(3, "0")}
-              </b>
-            </span>
-          </div>
+          {/* 발바닥 도장: 몇 번째로 다녀간 고양이인지 보여 줘요 */}
+          <PawStamp id={entry.id} />
 
-          <div className="flex min-w-0 flex-col gap-1">
+          <div className="flex min-w-0 flex-1 flex-col gap-1">
             <div className="flex flex-wrap items-baseline gap-x-3">
-              <span className="font-semibold">{entry.name}</span>
-              <time
-                dateTime={entry.created_at}
-                className="font-mono text-xs text-muted tabular-nums"
-              >
+              <span className="text-base font-bold">{entry.name}</span>
+              <time dateTime={entry.created_at} className="text-sm text-muted tabular-nums">
                 {dateFormat.format(new Date(entry.created_at))}
               </time>
             </div>
-            <p className="font-display text-[17px] leading-relaxed whitespace-pre-wrap break-words">
+            <p className="text-base whitespace-pre-wrap">
               {entry.message}
             </p>
           </div>
@@ -76,8 +64,8 @@ export async function EntryList() {
 
 function Notice({ title, text }: { title: string; text: string }) {
   return (
-    <div className="rounded-md border border-dashed border-line px-5 py-8 text-center text-muted">
-      <strong className="mb-1 block font-display text-lg text-ink">{title}</strong>
+    <div className="rounded-2xl border-2 border-dashed border-line px-5 py-10 text-center text-muted">
+      <strong className="mb-1 block font-display text-lg font-normal text-ink">{title}</strong>
       {text}
     </div>
   );
