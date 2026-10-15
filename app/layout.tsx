@@ -18,9 +18,21 @@ const gaegu = Gaegu({
   preload: false,
 });
 
+// 브라우저 탭과 링크를 공유할 때(카톡 미리보기 등) 보이는 이름과 설명
+const siteTitle = "🐾 하예HAYE | 고양이 발바닥 방명록";
+const siteDescription = "이름과 한마디를 남기면 고양이가 발바닥 도장을 꾹 찍어 줘요.";
+
 export const metadata: Metadata = {
-  title: "우리의 방명록",
-  description: "이름과 한마디를 남기는 고양이 방명록",
+  title: siteTitle,
+  description: siteDescription,
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    url: "https://guestbook-smoky.vercel.app/",
+    siteName: siteTitle,
+    locale: "ko_KR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
