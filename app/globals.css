@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+/* 사이트 전체 색상표. 밝은 화면 기준이고, 아래에서 어두운 화면용으로 바꿔요 */
+:root {
+  --paper: #f3f4f1;
+  --sheet: #fcfcfa;
+  --ink: #1d2433;
+  --muted: #5b6375;
+  --line: #d9dcd6;
+  --accent: #2b4c9b;
+  --accent-ink: #ffffff;
+  --danger: #a3372b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #14171e;
+    --sheet: #1c2029;
+    --ink: #e7e9ee;
+    --muted: #9aa2b3;
+    --line: #2e3340;
+    --accent: #8fa9ec;
+    --accent-ink: #10131a;
+    --danger: #e88a7d;
+    color-scheme: dark;
+  }
+}
+
+/* 위 색상과 글꼴을 Tailwind 이름(bg-paper, text-muted, font-display 등)으로 쓸 수 있게 연결 */
+@theme inline {
+  --color-paper: var(--paper);
+  --color-sheet: var(--sheet);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-danger: var(--danger);
+  --font-display: var(--font-gowun-batang), "Nanum Myeongjo", "Batang", serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, Consolas, monospace;
+  --font-sans: "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.65;
+  /* 한글이 단어 중간에서 줄바꿈되지 않게 해요 */
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
